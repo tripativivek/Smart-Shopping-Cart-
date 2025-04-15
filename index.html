@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Shopping Cart with Budget Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-shopping-cart"></i>
+                <h1>Smart Cart</h1>
+            </div>
+            <div class="theme-toggle">
+                <button id="theme-button"><i class="fas fa-moon"></i></button>
+            </div>
+        </header>
+
+        <main>
+            <div class="dashboard">
+                <div class="budget-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-wallet"></i> Budget Tracker</h2>
+                    </div>
+                    <div class="budget-input">
+                        <div class="input-group">
+                            <label for="budget">Set Your Budget ($):</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                                <input type="number" id="budget" min="0" step="0.01" placeholder="Enter amount">
+                            </div>
+                        </div>
+                        <button id="set-budget" class="btn primary-btn">
+                            <i class="fas fa-check"></i> Set Budget
+                        </button>
+                    </div>
+                    
+                    <div class="budget-display">
+                        <div class="budget-meter">
+                            <div class="meter-circle">
+                                <div class="meter-fill" id="meter-fill"></div>
+                                <div class="meter-center">
+                                    <span id="budget-percentage">0%</span>
+                                    <small>used</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="budget-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Total Budget</div>
+                                <div class="stat-value" id="total-budget">$0.00</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Spent</div>
+                                <div class="stat-value" id="spent-amount">$0.00</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Remaining</div>
+                                <div class="stat-value" id="remaining-amount">$0.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <button id="save-cart" class="btn secondary-btn">
+                        <i class="fas fa-save"></i> Save Cart
+                    </button>
+                    <button id="load-cart" class="btn secondary-btn">
+                        <i class="fas fa-folder-open"></i> Load Cart
+                    </button>
+                    <button id="clear-cart" class="btn danger-btn">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </button>
+                </div>
+            </div>
+            
+            <div class="cart-section">
+                <div class="card-header">
+                    <h2><i class="fas fa-cart-plus"></i> Shopping Cart</h2>
+                </div>
+                
+                <div class="add-item-section">
+                    <div class="category-selector">
+                        <label for="item-category">Category:</label>
+                        <select id="item-category">
+                            <option value="groceries">Groceries</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="household">Household</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="add-item-form">
+                        <div class="input-group">
+                            <label for="item-name">Item Name:</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-tag"></i>
+                                <input type="text" id="item-name" placeholder="Enter item name">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="item-price">Price ($):</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                                <input type="number" id="item-price" min="0" step="0.01" placeholder="Enter price">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="item-quantity">Quantity:</label>
+                            <div class="quantity-control">
+                                <button id="decrease-qty" class="qty-btn"><i class="fas fa-minus"></i></button>
+                                <input type="number" id="item-quantity" value="1" min="1">
+                                <button id="increase-qty" class="qty-btn"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                        
+                        <button id="add-item" class="btn primary-btn">
+                            <i class="fas fa-plus-circle"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="budget-alert" class="alert hidden">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Warning: You're exceeding your budget!</p>
+                </div>
+                
+                <div class="cart-items">
+                    <div class="cart-header">
+                        <div class="cart-column category-col">Category</div>
+                        <div class="cart-column name-col">Item</div>
+                        <div class="cart-column price-col">Price</div>
+                        <div class="cart-column qty-col">Qty</div>
+                        <div class="cart-column total-col">Total</div>
+                        <div class="cart-column action-col">Action</div>
+                    </div>
+                    
+                    <div id="cart-list" class="cart-list">
+                        <!-- Cart items will be added here -->
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <div class="summary-label">Subtotal:</div>
+                            <div class="summary-value" id="cart-subtotal">$0.00</div>
+                        </div>
+                        <div class="summary-row total-row">
+                            <div class="summary-label">Total:</div>
+                            <div class="summary-value" id="cart-total">$0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div id="notification" class="notification hidden">
+            <i class="fas fa-info-circle"></i>
+            <span id="notification-message"></span>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
